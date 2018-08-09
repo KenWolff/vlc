@@ -39,6 +39,24 @@
     <ClCompile Include="vlc.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Qso.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Log.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LogModel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Rpt.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ErrorLog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ErrorFileModel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -47,6 +65,24 @@
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="vlc.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="Qso.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="Log.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="LogModel.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="Rpt.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="ErrorLog.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="ErrorFileModel.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
