@@ -1,39 +1,56 @@
 #include "stdafx.h"
-#include "Qso.h"
 
-Qso::Qso(QObject *parent, QString line)
+Qso::Qso(QObject *parent, QString line, int row) : _row(row)
 {
-	int idx = line.indexOf(':');							// split() and section() don't work because some lines have multiple ':'
-	if (idx == -1)											// must have at least one ':' for token
-		return;
-	//QString token = line.left(idx).toUpper();						// before the colon -- all tokens are upper case
-	QString data = line.right(line.length() - idx - 1).trimmed();	// the rest of the line without white space at ends
-	//if (token != "QSO")
-	//	return;
+	QString data = line.simplified();
+	bool hasRst(false);
+	if (line.startsWith("QSO:"))
+		hasRst = true;
 
-	QStringList parts = data.split(QRegularExpression("\\s+"), QString::SkipEmptyParts);
-	if (parts.size() > 0) _qrg		= parts[0].toInt();
-	if (parts.size() > 1) _mode		= parts[1];
-	if (parts.size() > 3) _dateTime = QDateTime(QDate::fromString(parts[2], "yyyy-MM-dd"), QTime::fromString(parts[3], "hhmm"));
-	if (parts.size() > 4) _callSent = parts[4];
-	if (parts.size() > 5) _rstSent	= parts[5];
-	if (parts.size() > 6) _exchSent = parts[6];
-	if (parts.size() > 7) _callRcvd = parts[7];
-	if (parts.size() > 8) _rstRcvd	= parts[8];
-	if (parts.size() > 9) _exchRcvd = parts[9];
+	QStringList parts = data.split(' ');
+	if (hasRst && parts.size() >= 11)
+	{
+		_qrg		= parts[1].toInt();
+		_mode		= parts[2];
+		_dateTime	= QDateTime(QDate::fromString(parts[3], "yyyy-MM-dd"), QTime::fromString(parts[4], "hhmm"));
+		_callSent	= parts[5];
+		_rstSent	= parts[6];
+		_exchSent	= parts[7];
+		_callRcvd	= parts[8];
+		_rstRcvd	= parts[9];
+		_exchRcvd	= parts[10];
+	}
+
+	if (!hasRst && parts.size() < 9)
+	{
+		_qrg		= parts[0].toInt();
+		_mode		= parts[1];
+		_dateTime	= QDateTime(QDate::fromString(parts[2], "yyyy-MM-dd"), QTime::fromString(parts[3], "hhmm"));
+		_callSent	= parts[4];
+		_exchSent	= parts[5];
+		_callRcvd	= parts[6];
+		_exchRcvd	= parts[7];
+	}
+
+	if (_qrg >= B10.LowerEdge() && _qrg <= B10.UpperEdge())  _band = B10;	else
+		if (_qrg >= B15.LowerEdge() && _qrg <= B15.UpperEdge())  _band = B15;	else
+			if (_qrg >= B20.LowerEdge() && _qrg <= B20.UpperEdge())  _band = B20;	else
+				if (_qrg >= B40.LowerEdge() && _qrg <= B40.UpperEdge())  _band = B40;	else
+					if (_qrg >= B80.LowerEdge() && _qrg <= B80.UpperEdge())  _band = B80;	else
+						if (_qrg >= B160.LowerEdge() && _qrg <= B160.UpperEdge()) _band = B160;
 }
 
 QVariant Qso::GetData(int idx)
 {
 	switch (idx)
 	{
-	case 0: return _qrg; break;
-	case 1: return _mode; break;
-	case 2: return _dateTime.toString("yyyy-MM-dd hhmm"); break;
-	case 3: return _callSent; break;
-	case 4: return _exchSent; break;
-	case 5: return _callRcvd; break;
-	case 6: return _exchRcvd; break;
+	case 0: return _qrg;
+	case 1: return _mode;
+	case 2: return _dateTime.toString("yyyy-MM-dd hhmm");
+	case 3: return _callSent;
+	case 4: return _exchSent;
+	case 5: return _callRcvd;
+	case 6: return _exchRcvd;
 	}
 
 	return QVariant();

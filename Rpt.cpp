@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "Rpt.h"
 
-
 Rpt::Rpt(QObject *parent) {}
 
 Rpt::Rpt(QObject *parent, QString fileName)

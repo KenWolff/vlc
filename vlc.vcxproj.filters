@@ -57,9 +57,27 @@
     <ClCompile Include="ErrorFileModel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="UniFileModel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RlCandidateModel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Bands.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Unique.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Bands.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Unique.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -83,6 +101,12 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="ErrorFileModel.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="UniFileModel.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="RlCandidateModel.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>

@@ -1,11 +1,14 @@
 #pragma once
 
 #include <QtWidgets/QMainWindow>
+#include <QSettings>
+
 #include "ui_vlc.h"
 #include "Log.h"
 #include "LogModel.h"
 #include "Rpt.h"
 #include "ErrorFileModel.h"
+#include "UniFileModel.h"
 
 class vlc : public QMainWindow
 {
@@ -13,45 +16,68 @@ class vlc : public QMainWindow
 
 public:
 	vlc(QWidget * parent = Q_NULLPTR);
-	QFileDialog * ContestDialog();
-	QFileDialog * LogDialog();
-	QFileDialog * DatDialog();
-	QFileDialog * RlDialog();
-	QFileDialog * TmDialog();
+	void HideBoxes();
 
 public slots:
-	void setContestPath(QString);
-	void logSelected(QString);
-	void errorSelected(QModelIndex);
+	void SelectContest();
+	void ShowUnique();
+	void ShowError();
+	void ShowCll();
+	void ShowClx();
+	void ShowCaused();
+	void ShowRcvd();
+
+	void ErrorLineSelected			(QModelIndex);
+	void LogLineSelected			(QModelIndex);
+	void UniLineSelected			(QModelIndex);
+	void UniCandidateLineSelected	(QModelIndex);
+	
+	void DisplayUniquesFile			(QString);
+	void DisplayErrorFile			(QString);
+	void DisplayCllFile				(QString);
+	void DisplayClxFile				(QString);
+	void DisplayCausedFile			(QString);
+	void DisplayRcvdFile			(QString);
+
+	void DisplayLog					(QString);
+	void DisplayRl					(QString, Qso const *);
+	void DisplayRlCandidates		(Unique &);
+
 
 private:
 	Ui::vlcClass ui;
 
 	QStringList ReadFileLines(QString);
-	Log		 *_log;
-	LogModel *_logModel;
-	Log		 *_rl;
-	LogModel *_rlModel;
-	Rpt		 *_rpt;
-	QStringListModel *_errListModel;
+	void		LoadLcDat();
 
-	QFileDialog *_contestDialog;
-	QFileDialog *_logDialog;
-	QFileDialog *_datDialog;
-	QFileDialog *_rlDialog;
-	QFileDialog *_tmDialog;
+	QString				_contestType;
+	QString				_contestName;
+	QString				_contestTitle;
+	QString				_contestMode;
 
-	QAction *_contestAction;
-	QAction *_logAction;
-	QAction *_datAction;
+	QDateTime			_start;
+	QDateTime			_end;
+	
+	QStringListModel	*_errFileModel;
+	QStringListModel	*_cllFileModel;
+	QStringListModel	*_clxFileModel;
+	QStringListModel	*_causedFileModel;
+	QStringListModel	*_rcvdFileModel;
 
-	QDir	_contestDir;
-	QDir	_logDir;
-	QDir	_lgDir;
-	QDir	_resDir;
-	QDir	_rlDir;
-	QDir	_rptDir;
+	LogModel			*_logFileModel;
+	RlCandidateModel	*_rlCandidateModel;
+	LogModel			*_rlFileModel;
+	UniFileModel		*_uniFileModel;
 
-	QDir	_directoryOfContests;
+	Log					*_log;
+	Log					*_rl;
+	Rpt					*_rpt;
+	QSettings			*_settings;
 
+	QDir				_contestDir;
+	QDir				_logDir;
+	QDir				_lgDir;
+	QDir				_resDir;
+	QDir				_rlDir;
+	QDir				_rptDir;
 };
