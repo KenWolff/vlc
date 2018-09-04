@@ -100,6 +100,7 @@ void vlc::DisplayRlCandidates(Unique & unique)
 	ui.rlCandidateView->show();
 }
 
+
 void vlc::DisplayRl(QString fileName, Qso const * q = 0)
 {
 	ui.label->setText("DISPLAY RL");
